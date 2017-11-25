@@ -1,1 +1,1 @@
-web: node sub/index.js
+web: node index.js
