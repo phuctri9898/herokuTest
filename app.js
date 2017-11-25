@@ -271,7 +271,7 @@ app.get('/getScoreCustomerFromCustomer/:fromAdd/:addressRetail', function (req, 
 app.listen(process.env.PORT || 5000, function () {
     console.log('Example app listening on port '+process.env.PORT);
 
-    web3.eth.personal.unlockAccount("0x1ABbFe3E2F17E9b8eF5B63383CdAef963b7c4dcF","!@superpassword");
-    web3.eth.personal.unlockAccount("0x2EA1C8AF1E7aa5c8Fc572eB4125d72Ab9486E586","!@superpassword");
+    //web3.eth.personal.unlockAccount("0x1ABbFe3E2F17E9b8eF5B63383CdAef963b7c4dcF","!@superpassword");
+    //web3.eth.personal.unlockAccount("0x2EA1C8AF1E7aa5c8Fc572eB4125d72Ab9486E586","!@superpassword");
 });
 
