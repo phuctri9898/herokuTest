@@ -268,8 +268,8 @@ app.get('/getScoreCustomerFromCustomer/:fromAdd/:addressRetail', function (req, 
         });
 });
 
-app.listen(5041, function () {
-    console.log('Example app listening on port 5043!');
+app.listen(process.env.PORT || 5000, function () {
+    console.log('Example app listening on port '+$PORT);
 
 
     web3.eth.personal.unlockAccount("0x1ABbFe3E2F17E9b8eF5B63383CdAef963b7c4dcF","!@superpassword");
