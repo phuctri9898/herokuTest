@@ -160,31 +160,12 @@ app.get('/', function (req, res) {
     res.send('Hello World!')
 });
 
-app.get('/test/:address', function (req, res) {
-    var address = req.params.address;
-
-
-    var contract = new web3.eth.Contract(codeABI, address);
-
-    contract.methods.getDemo(true, "0x4c426d76385ac0d4d22faae7e6a6010dc4c83901").call({from: address},
-        function (error, result) {
-            if (!error) {
-                console.log(result);
-                res.send({ok: true});
-            }
-            else
-                console.error(error);
-        });
-
-    console.log(req.params);
-    res.send({});
-});
 
 app.get('/getDemo', function (req, res) {
 
     var contract = new web3.eth.Contract(codeABI, address);
 
-    contract.methods.getDemo(true, "0x4c426d76385ac0d4d22faae7e6a6010dc4c83901").call({from: '0x4c426d76385ac0d4d22faae7e6a6010dc4c83901'},
+    contract.methods.getDemo(true, "0x4c426d76385ac0d4d22faae7e6a6010dc4c83901").call({from: '0x1ABbFe3E2F17E9b8eF5B63383CdAef963b7c4dcF'},
         function (error, result) {
             if (!error) {
                 console.log(result);
@@ -197,9 +178,9 @@ app.get('/getDemo', function (req, res) {
 
 app.get('/getPublicKeyUser/:from/:address', function (req, res) {
     var fromAdd = req.params.from;
-    var address = req.params.address;
+    var addressNeed = req.params.address;
     var contract = new web3.eth.Contract(codeABI, address);
-    contract.methods.getPublicKeyUser(address).send({from: fromAdd},
+    contract.methods.getPublicKeyUser(addressNeed).call({from: fromAdd},
         function (error, result) {
             if (!error) {
                 console.log(result);
@@ -210,15 +191,15 @@ app.get('/getPublicKeyUser/:from/:address', function (req, res) {
         });
 });
 
-app.get('/createUser/from/publicKey/isCustomer', function (req, res) {
+app.get('/createUser/:from/:publicKey/:isCustomer', function (req, res) {
 
-    console.log("test");
     var fromAddress = req.params.from;
     var publicKey = req.params.publicKey;
     var isCustomer = req.params.isCustomer;
 
+
     var contract = new web3.eth.Contract(codeABI, address);
-    contract.methods.createUser(publicKey, isCustomer).send({from: fromAddress},
+    contract.methods.createUser(publicKey, isCustomer).send({from: fromAddress, gas: 500000},
         function (error, result) {
             if (!error) {
                 console.log(result);
@@ -228,6 +209,7 @@ app.get('/createUser/from/publicKey/isCustomer', function (req, res) {
                 console.error(error);
         });
 });
+
 
 app.get('/updateScoreToCustomer/:fromAdd/:addressCus/:totalScoreCusEnc/:totalScoreRetEnc/:changeScorecusEn/' +
     ':changeScoreRetEn/:hasPoint', function (req, res) {
@@ -241,7 +223,7 @@ app.get('/updateScoreToCustomer/:fromAdd/:addressCus/:totalScoreCusEnc/:totalSco
 
     var contract = new web3.eth.Contract(codeABI, address);
     contract.methods.updateScoreToCustomer(addressCus, totalScoreCusEnc, totalScoreRetEnc,
-        changeScorecusEn, changeScoreRetEn, hasPoint).send({from: fromAdd},
+        changeScorecusEn, changeScoreRetEn, hasPoint).send({from: fromAdd, gas: 500000},
         function (error, result) {
             if (!error) {
                 console.log(result);
@@ -286,8 +268,11 @@ app.get('/getScoreCustomerFromCustomer/:fromAdd/:addressRetail', function (req, 
         });
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+app.listen(5041, function () {
+    console.log('Example app listening on port 5043!');
 
+
+    web3.eth.personal.unlockAccount("0x1ABbFe3E2F17E9b8eF5B63383CdAef963b7c4dcF","!@superpassword");
+    web3.eth.personal.unlockAccount("0x2EA1C8AF1E7aa5c8Fc572eB4125d72Ab9486E586","!@superpassword");
 });
 
